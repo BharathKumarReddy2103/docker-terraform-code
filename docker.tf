@@ -4,6 +4,8 @@ resource "aws_instance" "docker" {
   vpc_security_group_ids = [aws_security_group.allow_all_docker.id]
   subnet_id = "subnet-027e9b95abbffe496" # replace with your subnet ID
 
+  associate_public_ip_address = true
+
   # need more for terraform
   root_block_device {
     volume_size = 50
