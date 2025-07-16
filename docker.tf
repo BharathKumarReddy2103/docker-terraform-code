@@ -2,6 +2,7 @@ resource "aws_instance" "docker" {
   ami           = local.ami_id
   instance_type = "t3.medium"
   vpc_security_group_ids = [aws_security_group.allow_all_docker.id]
+  subnet_id = "subnet-027e9b95abbffe496" # replace with your subnet ID
 
   # need more for terraform
   root_block_device {
