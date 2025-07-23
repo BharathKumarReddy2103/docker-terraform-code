@@ -20,6 +20,7 @@ resource "aws_instance" "docker" {
   ami           = local.ami_id
   #instance_type = "t3.micro"
   vpc_security_group_ids = [aws_security_group.allow_all_docker.id]
+  associate_public_ip_address = true
   instance_type = "t3.medium"
   subnet_id     = data.aws_subnet.default.id  
   # need more for terraform
