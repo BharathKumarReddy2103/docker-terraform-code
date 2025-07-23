@@ -1,16 +1,19 @@
-# -----------------------------
-# Step 1: Get default VPC and subnet dynamically
-# -----------------------------
+# Get default VPC
 data "aws_vpc" "default" {
   default = true
 }
 
-data "aws_subnet_ids" "default" {
-  vpc_id = data.aws_vpc.default.id
+# Get all subnets in the default VPC
+data "aws_subnets" "default" {
+  filter {
+    name   = "vpc-id"
+    values = [data.aws_vpc.default.id]
+  }
 }
 
+# Get the first subnet from the list
 data "aws_subnet" "default" {
-  id = data.aws_subnet_ids.default.ids[0]
+  id = data.aws_subnets.default.ids[0]
 }
 
 resource "aws_instance" "docker" {
