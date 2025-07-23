@@ -1,3 +1,18 @@
+# -----------------------------
+# Step 1: Get default VPC and subnet dynamically
+# -----------------------------
+data "aws_vpc" "default" {
+  default = true
+}
+
+data "aws_subnet_ids" "default" {
+  vpc_id = data.aws_vpc.default.id
+}
+
+data "aws_subnet" "default" {
+  id = data.aws_subnet_ids.default.ids[0]
+}
+
 resource "aws_instance" "docker" {
   ami           = local.ami_id
   #instance_type = "t3.micro"
